@@ -11,8 +11,8 @@ public class ManageMask : MonoBehaviour
     {
         
         h = GameObject.Find("Heads");
-        //İlk maske dışındaki maskeleri etkisiz hale getiriyoruz.
-        for(int i = 1; i < masks.Length; i++)
+        //Disable masker kecuali masker pertama
+        for (int i = 1; i < masks.Length; i++)
         {
             masks[i].SetActive(false);
         }
@@ -21,23 +21,23 @@ public class ManageMask : MonoBehaviour
     {
         if (masks[a].GetComponent<Mask>().isDragging == false) {
             Debug.Log(masks[a].transform.rotation.eulerAngles.z);
-            //1 - 5 arası maske için ideal pozisyon
+            // poisisi letak masker 1-5
             if (masks[a].transform.rotation.eulerAngles.z < 5 && masks[a].transform.rotation.eulerAngles.z > 1)
             {
             Debug.Log(masks[a].transform.rotation.eulerAngles.z);
             masks[a].GetComponent<Mask>().setRotationSpeed(0f);
             tiks[a].SetActive(true);
-            Debug.Log("Maske düzeltildi.");
-            //Düzeltilen maske son maske değilse if içine giriyoruz.
+            Debug.Log("Mask Fixed");
+                //Jika masker yang dikoreksi bukan masker terakhir, masukan if
                 if (a != masks.Length - 1)
                 {
-                //1 saniyenin ardından sağdaki kafaya geçiyoruz.
+                //Setelah 1 detik, kami pindah ke kepala di sebelah kanan.
                 Invoke("slideHead", 1);
-                //Bir sonraki kafanın maskesini aktifleştiriyoruz.
+                //Mengaktifkan masker kepala berikutnya.
                 masks[a + 1].SetActive(true);
                 a += 1;
                 }
-            //Son maske takılınca else içine giriyoruz
+            //Saat masker terakhir dipakai, masuk ke scene lain
                 else
                 {
                 Debug.Log("Level Completed");
@@ -50,7 +50,7 @@ public class ManageMask : MonoBehaviour
         }
 
     }
-    //Kamerayı bir sonraki yüze çevirmek için kullanılan method
+    //Metode yang digunakan untuk memindahkan kamera ke wajah berikutnya
     private void slideHead()
     {
         Vector3 v3 = h.transform.position - Vector3.right * 3;

@@ -11,6 +11,8 @@ public class SceneController : MonoBehaviour
     public float time;
     public GameObject frame;
     public GameObject endPanel;
+    public Transform startPanel;
+    private bool waitForSpace = false;
 
     private void Awake()
     {
@@ -22,6 +24,14 @@ public class SceneController : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKey(KeyCode.Mouse0) && !waitForSpace)
+        {
+            waitForSpace = true;
+            startPanel.gameObject.SetActive(false);
+        }
+
+        if (!waitForSpace) return;
+
         timer.value += Time.deltaTime;
         if (timer.value == timer.maxValue)
         {
